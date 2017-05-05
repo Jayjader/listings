@@ -9,6 +9,8 @@ Setup:
     > virtualenv listings_env
     // Install dependencies (like django)
     > pip install -r requirements.txt
+    // Create database & update it to the most current model
+    > python manage.py migrate
     // Start local server
     > python manage.py runserver
 Then go to [localhost:8000/listings/](localhost:8000/listings/).
