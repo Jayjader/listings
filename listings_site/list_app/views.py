@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from django.utils.datetime_safe import datetime
+from django.utils import timezone
 from secrets import token_urlsafe
 
 from .models import Listing
@@ -45,7 +45,7 @@ def new(request):
         description = request.POST['description']
         email = request.POST['creator email']
         token = generate_guaranteed_unique_token(8)
-        l = Listing(title=title, description=description, creator_email=email, edit_token=token, last_edit_date=datetime.now())
+        l = Listing(title=title, description=description, creator_email=email, edit_token=token, last_edit_date=timezone.now())
         l.save()
         context['posted'] = True
 
