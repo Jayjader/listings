@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
@@ -24,15 +25,23 @@ def contact(request, pk: int):
     return HttpResponse("Contact the creator of a certain listing." + placeholder)
 
 
-def generate_guaranteed_unique_token(num_bytes):
-    # Recursively generate an 8 byte token until a unique one is had (should not go more than 2 layers deep given the
-    #  scale of this app)
-    token = token_urlsafe(num_bytes)
+def generate_guaranteed_unique_token():
+    # Recursively generate a token until a unique one is had (should
+    # not go more than 2 layers deep given the scale of this app)
+    token = token_urlsafe()
     collisions = Listing.objects.filter(edit_token=token)
     if len(collisions) > 0:
         return generate_guaranteed_unique_token()
     else:
         return token
+
+
+def send_creation_email(email: str, token: str):
+    message = 'Thanks for using Listings!\nTo edit your listing, go to this link: listings.com/edit/{}'
+    send_mail(subject='New Listing',
+              message=message.format(token),
+              from_email='donotreply@listings.com',
+              recipient_list=[email])
 
 
 def new(request):
@@ -44,13 +53,17 @@ def new(request):
         title = request.POST['title']
         description = request.POST['description']
         email = request.POST['creator email']
-        token = generate_guaranteed_unique_token(8)
-        l = Listing(title=title, description=description, creator_email=email, edit_token=token, last_edit_date=timezone.now())
-        l.save()
+        token = generate_guaranteed_unique_token()
+        Listing.objects.create(title=title,
+                               description=description,
+                               creator_email=email,
+                               edit_token=token,
+                               last_edit_date=timezone.now())
         context['posted'] = True
+        send_creation_email(email, token)
 
     return HttpResponse(template.render(context, request))
 
 
-def edit_listing(request, pk: int):
+def edit_listing(request, token: str):
     return HttpResponse("Edit a listing." + placeholder)
