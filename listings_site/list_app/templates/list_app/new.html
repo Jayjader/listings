@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post a new listing</title>
+</head>
+<body>
+
+<label>Post a new listing</label><br/>
+<form action="{% url 'list_app:new' %}" method="post">
+    {% csrf_token %}
+    <label>Title:
+    <input type="text" name="title" id="title" maxlength="20" required/></label> <br/>
+    <label>Description:
+    <textarea name="description" id="description" required></textarea></label> <br/>
+    <label>Your email:
+    <input type="email" name="creator email" required></label> <br/>
+    <input type="submit" value="Submit">
+</form>
+
+{% if posted %}
+Your listing was successfully posted. Check your email for the link to edit your listing.
+{% endif %}
+</body>
+</html>

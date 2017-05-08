@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 
 class Listing(models.Model):
@@ -7,3 +8,6 @@ class Listing(models.Model):
     description = models.CharField(max_length=500)
     creator_email = models.CharField(max_length=100)
     edit_token = models.CharField(max_length=16)
+
+    def __str__(self):
+        return self.title
