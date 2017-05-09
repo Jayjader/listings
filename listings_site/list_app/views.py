@@ -9,6 +9,7 @@ from django.utils import timezone
 from .models import Listing
 
 placeholder = "\nThis is a placeholder page."
+DEBUG_NEW = True
 
 
 def index(request):
@@ -40,9 +41,10 @@ def generate_guaranteed_unique_token():
 
 
 def send_creation_email(email: str, token: str):
-    message = 'Thanks for using Listings!\nTo edit your listing, go to this link: listings.com/edit/{}'
+    message = 'Thanks for using Listings!\nTo edit your listing, go to this link: {domain}/edit/{token}'
     send_mail(subject='New Listing',
-              message=message.format(token),
+              message=message.format(domain='localhost:8000/listings' if DEBUG_NEW else 'listings.com',
+                                     token=token),
               from_email='donotreply@listings.com',
               recipient_list=[email])
 
