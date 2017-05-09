@@ -1,9 +1,10 @@
+from secrets import token_urlsafe
+
 from django.core.mail import send_mail
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.template import loader
 from django.utils import timezone
-from secrets import token_urlsafe
 
 from .models import Listing
 
@@ -18,10 +19,12 @@ def index(request):
 
 
 def detail(request, pk: int):
+    # TODO: Show Listing details & contact button
     return HttpResponse("Here are the details for a particular listing." + "\ntested: " + str(pk) + placeholder)
 
 
 def contact(request, pk: int):
+    # TODO: Form; inputs: message, subject & sender email
     return HttpResponse("Contact the creator of a certain listing." + placeholder)
 
 
@@ -45,7 +48,7 @@ def send_creation_email(email: str, token: str):
 
 
 def new(request):
-    template = loader.get_template('list_app/new.html')
+    template = 'list_app/new.html'
     context = {}
 
     if request.method == 'POST':
@@ -62,8 +65,9 @@ def new(request):
         context['posted'] = True
         send_creation_email(email, token)
 
-    return HttpResponse(template.render(context, request))
+    return render(request, template, context)
 
 
 def edit_listing(request, token: str):
+    # TODO: Edit listing title, description
     return HttpResponse("Edit a listing." + placeholder)
