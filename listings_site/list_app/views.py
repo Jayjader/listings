@@ -1,8 +1,9 @@
 from secrets import token_urlsafe
 
 from django.core.mail import send_mail
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.template import loader
 from django.utils import timezone
 
 from .models import Listing
@@ -47,7 +48,7 @@ def send_creation_email(email: str, token: str):
 
 
 def new(request):
-    template = 'list_app/new.html'
+    template = loader.get_template('list_app/new.html')
     context = {}
 
     if request.method == 'POST':
@@ -63,8 +64,9 @@ def new(request):
                                last_edit_date=timezone.now())
         context['posted'] = True
         send_creation_email(email, token)
-
-    return render(request, template, context)
+        return HttpResponseRedirect('', template.render(context, request))
+    else:
+        return HttpResponse(template.render(context, request))
 
 
 def edit_listing(request, token: str):
