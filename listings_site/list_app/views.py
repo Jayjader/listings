@@ -3,7 +3,6 @@ from secrets import token_urlsafe
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import loader
 from django.utils import timezone
 
 from .models import Listing
@@ -13,9 +12,9 @@ placeholder = "\nThis is a placeholder page."
 
 def index(request):
     latest_listings = Listing.objects.order_by('-last_edit_date')[:10]
-    template = loader.get_template('list_app/index.html')
+    template = 'list_app/index.html'
     context = {'latest_listings': latest_listings}
-    return HttpResponse(template.render(context, request))
+    return render(request, template, context)
 
 
 def detail(request, pk: int):
