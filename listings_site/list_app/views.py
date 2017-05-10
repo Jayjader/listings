@@ -13,7 +13,7 @@ DEBUG_NEW = True
 
 
 def index(request):
-    latest_listings = Listing.objects.order_by('-last_edit_date')[:10]
+    latest_listings = Listing.objects.order_by('-last_edit_date')
     template = 'list_app/index.html'
     context = {'latest_listings': latest_listings}
     return render(request, template, context)
