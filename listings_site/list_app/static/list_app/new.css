@@ -1,0 +1,11 @@
+#box {
+    background-color: #A6AEC1;
+}
+
+input[type=submit] {
+    margin: auto;
+    width: auto;
+    background-color: #EDEDF2;
+    color: #6C788E;
+    font-weight: bold;
+}

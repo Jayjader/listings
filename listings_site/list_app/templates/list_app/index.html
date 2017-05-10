@@ -1,21 +1,45 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'list_app/base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'list_app/index.css' %}"/>
     <meta charset="UTF-8">
     <title>Listings</title>
 </head>
-<body>
 
-{% if latest_listings %}
-<ul>
-    {% for listing in latest_listings %}
-    <li>
-        <a href="/listings/{{ listing.id }}/">{{ listing.title }}</a> {{ listing.description|truncatechars:20 }}
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No listings posted.</p>
-{% endif %}
+<body>
+<div class="w3-container w3-display-container">
+    <div class="w3-button w3-round-large w3-display-topright w3-margin post"><a href="{% url 'list_app:new' %}"
+                                                                                style="color: #6C788E">Post a new
+        listing</a></div>
+
+    <div class="w3-container w3-margin">
+        <h1>Welcome to Listings!</h1>
+    </div>
+
+
+    <div class="w3-container w3-margin w3-padding">
+        {% if latest_listings %}
+        {% for listing in latest_listings %}
+        <div class="w3-container w3-section">
+            <span class="w3-round-large w3-margin w3-padding-small listing">
+                <a href="/listings/{{ listing.id }}/">
+                    {{ listing.title }}
+                </a>
+                {{ listing.description|truncatechars:100 }}
+            </span>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div id="none_available">No listings are available.
+            <a href="{% url 'list_app:new' %}">Post a new one?</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
 </body>
 </html>

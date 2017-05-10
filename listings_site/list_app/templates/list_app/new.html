@@ -1,25 +1,42 @@
 <!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'list_app/base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'list_app/new.css' %}"/>
     <meta charset="UTF-8">
     <title>Post a new listing</title>
 </head>
 <body>
 
-<label>Post a new listing</label><br/>
-<form action="{% url 'list_app:new' %}" method="post">
-    {% csrf_token %}
-    <label>Title:
-    <input type="text" name="title" id="title" maxlength="20" required/></label> <br/>
-    <label>Description:
-    <textarea name="description" id="description" required></textarea></label> <br/>
-    <label>Your email:
-    <input type="email" name="creator email" required></label> <br/>
-    <input type="submit" value="Submit">
-</form>
+<div class="w3-container">
+    <div class="w3-container">
+        <h1>Post a new listing</h1>
+    </div>
 
-{% if posted %}
-Your listing was successfully posted. Check your email for the link to edit your listing.
-{% endif %}
+    <form class="w3-container w3-round-large w3-padding" id="box" action="{% url 'list_app:new' %}" method="post">
+        {% csrf_token %}
+        <label for="title" class="w3-margin">Title</label>
+        <input class="w3-input w3-border-0" type="text" name="title" id="title" maxlength="20" required/>
+
+        <label for="description" class="w3-margin">Description</label>
+        <textarea class="w3-input w3-border-0" name="description" id="description" required></textarea>
+
+        <label for="email" class="w3-margin">Email address</label>
+        <input class="w3-input w3-border-0" type="email" name="creator email" id="email" required>
+
+        <input class="w3-button w3-round-xlarge w3-border-0 w3-margin" type="submit" value="Submit">
+    </form>
+
+    {% if posted %}
+    <p>
+        Your listing was successfully posted.
+        Check your email for the link to edit your listing.
+    </p>
+    {% endif %}
+</div>
 </body>
 </html>

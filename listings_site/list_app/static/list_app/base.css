@@ -1,0 +1,30 @@
+body {
+    background-color: #768699;
+    font-family: Liberation Mono, monospace;
+    padding: 1px;
+}
+
+h1 {
+    color: #FCFDFF;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    font-size: 16px;
+}
+
+a:link {
+    color: #FCFDFF;
+}
+
+a:visited {
+    color: #EDEDF2;
+}
+
+input, textarea {
+    background-color: #EDEDF2;
+    border: none;
+    color: black;
+}
+
