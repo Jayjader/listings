@@ -15,8 +15,8 @@ DEBUG_NEW = True
 
 def index(request):
     latest_listings = Listing.objects.order_by('-last_edit_date')
-    template = 'list_app/index.html'
     context = {'latest_listings': latest_listings}
+    template = 'list_app/index.html'
     return render(request, template, context)
 
 
@@ -24,8 +24,8 @@ def detail(request, pk: int):
     listing = get_object_or_404(Listing, pk=pk)
     url = reverse('list_app:contact', args=(pk,))
     context = {'listing': listing, 'contact_url': url}
-    template = loader.get_template('list_app/detail.html')
-    return HttpResponse(template.render(context, request))
+    template = 'list_app/detail.html'
+    return render(request, template, context)
 
 
 def contact(request, pk: int):
