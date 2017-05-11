@@ -1,13 +1,9 @@
-body {
-    margin: auto;
-    width: 75%;
-}
-
 span.listing {
     background-color: #A6AEC1;
 }
 
 div.post {
+    width: auto;
     background-color: #EDEDF2;
 }
 

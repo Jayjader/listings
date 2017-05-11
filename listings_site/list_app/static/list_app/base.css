@@ -2,6 +2,8 @@ body {
     background-color: #768699;
     font-family: Liberation Mono, monospace;
     padding: 1px;
+    margin: auto;
+    width: 75%;
 }
 
 h1 {
