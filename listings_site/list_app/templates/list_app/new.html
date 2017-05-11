@@ -28,7 +28,12 @@
         <label for="email" class="w3-margin">Email address</label>
         <input class="w3-input w3-border-0" type="email" name="creator email" id="email" required>
 
-        <input class="w3-button w3-round-xlarge w3-border-0 w3-margin" type="submit" value="Submit">
+        <div style="text-align: center">
+            <input class="w3-button w3-round-xlarge w3-border-0 w3-margin link_button" type="submit" value="Submit">
+            <div class="w3-container w3-button w3-round-xlarge w3-padding link_button">
+                <a href="{% url 'list_app:index' %}">Back to main page</a>
+            </div>
+        </div>
     </form>
 
     {% if posted %}

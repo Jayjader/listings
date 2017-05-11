@@ -13,8 +13,8 @@
 
 <body>
 <div class="w3-container w3-display-container">
-    <div class="w3-button w3-round-large w3-display-topright w3-margin post"><a href="{% url 'list_app:new' %}"
-                                                                                style="color: #6C788E">Post a new
+    <div class="w3-button w3-round-large w3-display-topright w3-margin link_button"><a href="{% url 'list_app:new' %}"
+                                                                                       style="color: #6C788E">Post a new
         listing</a></div>
 
     <div class="w3-container w3-margin">
@@ -22,16 +22,14 @@
     </div>
 
 
-    <div class="w3-container w3-margin w3-padding">
+    <div class="w3-padding w3-margin">
         {% if latest_listings %}
         {% for listing in latest_listings %}
-        <div class="w3-container w3-section">
-            <span class="w3-round-large w3-margin w3-padding-small listing">
-                <a href="/listings/{{ listing.id }}/">
+        <div class="w3-round-large w3-container w3-margin listing">
+            <p><a href="/listings/{{ listing.id }}/">
                     {{ listing.title }}
-                </a>
-                {{ listing.description|truncatechars:100 }}
-            </span>
+            </a></p>
+            <p>{{ listing.description|truncatechars:100 }}</p>
         </div>
         {% endfor %}
         {% else %}

@@ -2,8 +2,9 @@ from secrets import token_urlsafe
 
 from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.template import loader
+from django.urls import reverse
 from django.utils import timezone
 
 from .models import Listing
@@ -20,12 +21,16 @@ def index(request):
 
 
 def detail(request, pk: int):
-    # TODO: Show Listing details & contact button
-    return HttpResponse("Here are the details for a particular listing." + "\ntested: " + str(pk) + placeholder)
+    listing = get_object_or_404(Listing, pk=pk)
+    url = reverse('list_app:contact', args=(pk,))
+    context = {'listing': listing, 'contact_url': url}
+    template = loader.get_template('list_app/detail.html')
+    return HttpResponse(template.render(context, request))
 
 
 def contact(request, pk: int):
     # TODO: Form; inputs: message, subject & sender email
+    # send_contact_email(extract_contact_message(request.post))
     return HttpResponse("Contact the creator of a certain listing." + placeholder)
 
 

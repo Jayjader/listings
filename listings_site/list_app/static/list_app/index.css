@@ -1,10 +1,18 @@
-span.listing {
-    background-color: #A6AEC1;
+a {
+    font-size: 16px;
 }
 
-div.post {
+a:link {
+    color: #FCFDFF;
+}
+
+a:visited {
+    color: #EDEDF2;
+}
+
+div.listing {
+    background-color: #A6AEC1;
     width: auto;
-    background-color: #EDEDF2;
 }
 
 #none_available {
