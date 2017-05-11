@@ -13,15 +13,6 @@ h1 {
 
 a {
     text-decoration: none;
-    font-size: 16px;
-}
-
-a:link {
-    color: #FCFDFF;
-}
-
-a:visited {
-    color: #EDEDF2;
 }
 
 input, textarea {
@@ -30,3 +21,9 @@ input, textarea {
     color: black;
 }
 
+.link_button {
+    display: inline-block;
+    background: #EDEDF2;
+    color: #6C788E;
+    font-weight: bold;
+}

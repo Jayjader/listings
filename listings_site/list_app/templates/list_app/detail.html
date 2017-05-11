@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'list_app/base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'list_app/detail.css' %}"/>
+    <meta charset="UTF-8">
+    <title>{{ listing.title }} | Listings</title>
+</head>
+<body>
+
+<div class="w3-container">
+    <div class="w3-container">
+        <h1>{{ listing.title }}</h1>
+    </div>
+
+    <div class="w3-container w3-round-large w3-padding" id="box">
+        <p>{{ listing.description }}</p>
+
+        <div style="text-align: center">
+            <div class="w3-container w3-button w3-round-xlarge w3-padding link_button">
+                <a href="{{ contact_url }}">Contact this listing's poster</a>
+            </div>
+            <div class="w3-container w3-button w3-round-xlarge w3-padding link_button">
+                <a href="{% url 'list_app:index' %}">Back to main page</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
