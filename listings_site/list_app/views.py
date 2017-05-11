@@ -28,10 +28,42 @@ def detail(request, pk: int):
     return render(request, template, context)
 
 
+def send_contact_email(address: str, subject: str, message: str, listing: Listing):
+    sender_email = address
+
+    new_message = '''
+    Someone has sent you a message concerning your post "{title}" on Listings!\n
+    Here's their message:\n
+    {subject}\n
+    {message}\n\n
+    They have provided this email to contact them at: {sender}
+    '''.format(sender=sender_email, title=listing.title, subject=subject, message=message)
+
+    send_mail(subject='Message about your listing {}'.format(listing.title),
+              message=new_message,
+              from_email='donotreply@listings.com',
+              recipient_list=[listing.creator_email])
+
+
+def extract_contact_message(post):
+    return post['sender_email'], post['subject'], post['message']
+
+
 def contact(request, pk: int):
-    # TODO: Form; inputs: message, subject & sender email
-    # send_contact_email(extract_contact_message(request.post))
-    return HttpResponse("Contact the creator of a certain listing." + placeholder)
+    listing = get_object_or_404(Listing, pk=pk)
+    template = 'list_app/contact.html'
+    context = {'listing_title': listing.title}
+
+    if request.method == 'GET':
+        return render(request, template, context)
+
+    elif request.method == 'POST':
+        # "relay" the message posted
+        send_contact_email(*extract_contact_message(request.POST), listing)
+
+        # tell the template that the email was sent correctly so that it notifies the user
+        context['posted'] = True
+        return HttpResponseRedirect('', loader.get_template(template).render(context, request))
 
 
 def generate_guaranteed_unique_token():

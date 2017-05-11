@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'list_app/base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'list_app/contact.css' %}"/>
+    <meta charset="UTF-8">
+    <title>Contact "{{ listing_title }}" | Listings</title>
+</head>
+<body>
+
+<div class="w3-container">
+    <div class="w3-container">
+        <h1>Contact the poster of this listing</h1>
+    </div>
+
+    <form class="w3-container w3-round-large w3-padding" id="box" action="{{ request.path }}" method="post">
+        {% csrf_token %}
+        <label for="subject" class="w3-margin">Subject</label>
+        <input class="w3-input w3-border-0" type="text" name="subject" id="subject" maxlength="20" required/>
+
+        <label for="message" class="w3-margin">Message</label>
+        <textarea class="w3-input w3-border-0" name="message" id="message" required></textarea>
+
+        <label for="sender_email" class="w3-margin">Your email address</label>
+        <input class="w3-input w3-border-0" type="email" name="sender_email" id="sender_email" required>
+
+        <div style="text-align: center">
+            <input class="w3-button w3-round-xlarge w3-border-0 w3-margin link_button" type="submit" value="Submit">
+            <div class="w3-container w3-button w3-round-xlarge w3-padding link_button">
+                <a href="{% url 'list_app:index' %}">Back to main page</a>
+            </div>
+        </div>
+    </form>
+
+    {% if posted %}
+    <p>
+        Your message was successfully sent.
+    </p>
+    {% endif %}
+</div>
+</body>
+</html>
