@@ -7,6 +7,8 @@ Setup:
     > cd listings
     // Setup virtual environment
     > virtualenv listings_env
+    // Enter this virtualenv
+    > source listings_env/bin/activate
     // Install dependencies (like django)
     > pip install -r requirements.txt
     // Create database & update it to the most current model
