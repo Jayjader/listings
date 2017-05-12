@@ -9,7 +9,6 @@ from django.utils import timezone
 
 from .models import Listing
 
-placeholder = "\nThis is a placeholder page."
 DEBUG_NEW = True
 
 
