@@ -13,7 +13,7 @@ Setup:
     > python manage.py migrate
     // Start local server
     > python manage.py runserver
-Then go to [localhost:8000/listings/](localhost:8000/listings/).
+Then go to [localhost:8000/listings/](http://localhost:8000/listings/).
 
 Currently, any emails generated are sent through the django
  email console backend (
@@ -29,7 +29,7 @@ Currently, any emails generated are sent through the django
       Email address: admin@listings.com
       Superuser created successfully.
   
-  Next, while the server's running, go to `localhost:8000/admin/`, login, and select Listings.
+  Next, while the server's running, go to [localhost:8000/admin/](http://localhost:8000/admin), login, and select Listings.
   You can now view, edit, delete & create announcements manually through this interface.
   Thus, you can access the proper edit page for any listing. 
   
