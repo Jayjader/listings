@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'list_app/base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'list_app/edit.css' %}"/>
+    <meta charset="UTF-8">
+    <title>Edit "{{ listing.title }}" | Listings</title>
+</head>
+<body>
+
+<div class="w3-container">
+    <div class="w3-container">
+        <h1>Edit your listing</h1>
+    </div>
+
+    <form class="w3-container w3-round-large w3-padding" id="box" action="" method="post">
+        {% csrf_token %}
+        <label for="title" class="w3-margin">Title</label>
+        <input class="w3-input w3-border-0" type="text" name="title" id="title" maxlength="20"
+               value="{{ listing.title }}"/>
+
+        <label for="description" class="w3-margin">Description</label>
+        <textarea class="w3-input w3-border-0" name="description" id="description">{{ listing.description }}</textarea>
+
+        <label for="email" class="w3-margin">Your email address</label>
+        <input class="w3-input w3-border-0" type="email" name="creator email" id="email"
+               value="{{ listing.creator_email }}">
+
+        <div style="text-align: center">
+            <input class="w3-button w3-round-xlarge w3-padding remove_button" type="submit" value="Delete this Listing"
+                   name="delete"/>
+            <input class="w3-button w3-round-xlarge w3-border-0 w3-margin link_button" type="submit"
+                   value="Save Changes" name="save">
+            <div class="w3-container w3-button w3-round-xlarge w3-padding link_button">
+                <a href="{% url 'list_app:index' %}">Cancel / Back to main page</a>
+            </div>
+        </div>
+    </form>
+
+    {% if saved %}
+    <p>
+        Your edit was successfully saved.
+    </p>
+    {% endif %}
+</div>
+</body>
+</html>

@@ -52,7 +52,8 @@ def extract_contact_message(post):
 def contact(request, pk: int):
     listing = get_object_or_404(Listing, pk=pk)
     template = 'list_app/contact.html'
-    context = {'listing_title': listing.title}
+    listing_url = reverse('list_app:detail', args=(listing.id,))
+    context = {'listing_title': listing.title, 'listing_url': listing_url}
 
     if request.method == 'GET':
         return render(request, template, context)
@@ -109,5 +110,27 @@ def new(request):
 
 
 def edit_listing(request, token: str):
-    # TODO: Edit listing title, description
-    return HttpResponse("Edit a listing." + placeholder)
+    listing = get_object_or_404(Listing, edit_token=token)
+    template = 'list_app/edit.html'
+    context = {'listing': listing}
+
+    if request.method == 'GET':
+        # display the listing attributes' current values
+        return render(request, template, context)
+
+    elif request.method == 'POST':
+        # first, determine if we're supposed to update the values, or delete the listing
+        if 'save' in request.POST:
+            listing.title = request.POST['title']
+            listing.description = request.POST['description']
+            listing.creator_email = request.POST['creator email']
+            listing.last_edit_date = timezone.now()
+            listing.save()
+
+            # alert the template that an edit was saved
+            context['saved'] = True
+            return HttpResponseRedirect('', loader.get_template(template).render(context, request))
+
+        elif 'delete' in request.POST:
+            listing.delete()
+            return HttpResponseRedirect(reverse('list_app:index'))

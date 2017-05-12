@@ -1,0 +1,10 @@
+#box {
+    background-color: #A6AEC1;
+}
+
+.remove_button {
+    background: darkred;
+    display: inline-block;
+    color: white;
+    font-weight: bold;
+}
