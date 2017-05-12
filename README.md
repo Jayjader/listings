@@ -11,6 +11,8 @@ Setup:
     > source listings_env/bin/activate
     // Install dependencies (like django)
     > pip install -r requirements.txt
+    // Change to django website directory
+    > cd listings_site
     // Create database & update it to the most current model
     > python manage.py migrate
     // Start local server
